@@ -3,33 +3,675 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorry Website - Home</title>
+    <title>Sorry Website - A Journey of Apology</title>
     <link rel="stylesheet" href="apology-style.css">
     <style>
+        /* Section Management */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeInSection 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeInSection {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Homepage specific styles */
-        .hero-section {
+        #home .hero-section {
             text-align: center;
             padding: 3rem 0;
         }
 
-        .hero-title {
+        #home .hero-title {
             font-size: 3.5em;
             color: var(--dark-pink);
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .hero-subtitle {
+        #home .hero-subtitle {
             font-size: 1.3em;
             color: var(--purple);
             margin-bottom: 2rem;
         }
 
-        .panda-spot-1 { top: 15%; left: 10%; }
-        .panda-spot-2 { top: 25%; right: 8%; animation-delay: 2s; }
-        .panda-spot-3 { top: 60%; left: 5%; animation-delay: 4s; }
-        .panda-spot-4 { top: 70%; right: 12%; animation-delay: 1s; }
-        .panda-spot-5 { top: 85%; left: 50%; animation-delay: 3s; }
+        /* Apology Page Styles */
+        #apology .apology-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 2rem 0;
+            text-align: left;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            border-left: 5px solid var(--dark-pink);
+        }
+
+        #apology .apology-title {
+            font-size: 2.5em;
+            color: var(--dark-pink);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Game Page Styles */
+        #game .game-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #game .game-title {
+            font-size: 2.5em;
+            color: var(--dark-pink);
+            margin-bottom: 1rem;
+        }
+
+        #game .tic-tac-toe {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            justify-content: center;
+            margin: 2rem auto;
+            background: var(--dark-pink);
+            padding: 5px;
+            border-radius: 15px;
+        }
+
+        #game .cell {
+            width: 100px;
+            height: 100px;
+            background: var(--white);
+            border: none;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--dark-pink);
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #game .cell:hover {
+            background: var(--light-pink);
+            transform: scale(1.05);
+        }
+
+        #game .cell:disabled {
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #game .player-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 1.2em;
+        }
+
+        #game .current-player {
+            font-weight: bold;
+            color: var(--purple);
+        }
+
+        #game .score {
+            background: rgba(156, 39, 176, 0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 0 10px;
+        }
+
+        #game .winner-message {
+            font-size: 1.5em;
+            color: var(--dark-pink);
+            font-weight: bold;
+            margin: 1rem 0;
+            min-height: 30px;
+        }
+
+        /* Message Page Styles */
+        #message .message-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #message .message-title {
+            font-size: 2.5em;
+            color: var(--dark-pink);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        #message .message-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(252, 228, 236, 0.9));
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1);
+            border: 2px solid rgba(233, 30, 99, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #message .message-content:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(233, 30, 99, 0.03), transparent);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        #message .message-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: var(--text-dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        #message .message-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        #message .highlight {
+            background: linear-gradient(120deg, rgba(233, 30, 99, 0.2) 0%, rgba(156, 39, 176, 0.2) 100%);
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        #message .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 2rem;
+            font-size: 1.1em;
+            color: var(--purple);
+        }
+
+        #message .interactive-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        #message .heart-button {
+            background: none;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        #message .heart-button:hover {
+            transform: scale(1.2);
+        }
+
+        #message .love-counter {
+            font-size: 1.2em;
+            color: var(--dark-pink);
+            margin: 1rem 0;
+        }
+
+        /* Flashcards Page Styles */
+        #flashcards .game-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        #flashcards .game-title {
+            font-size: 2.5em;
+            color: var(--dark-pink);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        #flashcards .game-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+            font-size: 1.2em;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        #flashcards .score-info {
+            display: flex;
+            gap: 2rem;
+        }
+
+        #flashcards .score-item {
+            text-align: center;
+        }
+
+        #flashcards .score-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--purple);
+        }
+
+        #flashcards .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 120px);
+            grid-template-rows: repeat(3, 120px);
+            gap: 15px;
+            justify-content: center;
+            margin: 2rem auto;
+            max-width: 500px;
+        }
+
+        #flashcards .flashcard {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--white), var(--light-pink));
+            border: 3px solid var(--dark-pink);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        #flashcards .flashcard:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(233, 30, 99, 0.3);
+        }
+
+        #flashcards .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        #flashcards .card-front, #flashcards .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+            border-radius: 12px;
+        }
+
+        #flashcards .card-front {
+            background: linear-gradient(135deg, var(--white), var(--light-pink));
+            border: 2px solid var(--dark-pink);
+        }
+
+        #flashcards .card-back {
+            background: linear-gradient(135deg, var(--purple), var(--purple-light));
+            color: var(--white);
+            transform: rotateY(180deg);
+            border: 2px solid var(--purple);
+        }
+
+        #flashcards .flashcard.matched {
+            transform: scale(0.9);
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        #flashcards .flashcard.matched .card-back {
+            background: linear-gradient(135deg, var(--dark-pink), var(--purple));
+        }
+
+        #flashcards .game-status {
+            text-align: center;
+            margin: 1rem 0;
+            font-size: 1.3em;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        #flashcards .game-status.win {
+            color: var(--dark-pink);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        #flashcards .difficulty-selector {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        #flashcards .difficulty-btn {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: rgba(156, 39, 176, 0.2);
+            border: 2px solid var(--purple);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #flashcards .difficulty-btn.active {
+            background: var(--purple);
+            color: var(--white);
+        }
+
+        /* Song Page Styles */
+        #song .song-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #song .song-title {
+            font-size: 2.5em;
+            color: var(--dark-pink);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #song .song-subtitle {
+            font-size: 1.2em;
+            color: var(--purple);
+            margin-bottom: 2rem;
+        }
+
+        #song .music-player {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(252, 228, 236, 0.9));
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.2);
+            border: 2px solid rgba(233, 30, 99, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #song .music-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            height: 80px;
+            margin: 1rem 0;
+            gap: 3px;
+        }
+
+        #song .bar {
+            width: 4px;
+            background: linear-gradient(to top, var(--dark-pink), var(--purple));
+            border-radius: 2px;
+            animation: music 0.8s infinite ease-in-out;
+        }
+
+        #song .bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        #song .bar:nth-child(2) { height: 30px; animation-delay: 0.1s; }
+        #song .bar:nth-child(3) { height: 40px; animation-delay: 0.2s; }
+        #song .bar:nth-child(4) { height: 50px; animation-delay: 0.3s; }
+        #song .bar:nth-child(5) { height: 60px; animation-delay: 0.4s; }
+        #song .bar:nth-child(6) { height: 50px; animation-delay: 0.5s; }
+        #song .bar:nth-child(7) { height: 40px; animation-delay: 0.6s; }
+        #song .bar:nth-child(8) { height: 30px; animation-delay: 0.7s; }
+
+        @keyframes music {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+        }
+
+        #song .lyrics-container {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 5px solid var(--dark-pink);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        #song .lyric-line {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin: 1rem 0;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        #song .lyric-line.active {
+            opacity: 1;
+            background: rgba(233, 30, 99, 0.1);
+            transform: scale(1.02);
+            font-weight: 600;
+            color: var(--dark-pink);
+        }
+
+        #song .music-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        #song .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--dark-pink), var(--purple));
+            color: var(--white);
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        #song .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        #song .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(233, 30, 99, 0.2);
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        #song .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--dark-pink), var(--purple));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 3px;
+        }
+
+        /* Thank You Page Styles */
+        #thankyou .thank-you-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #thankyou .thank-you-title {
+            font-size: 3em;
+            color: var(--dark-pink);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: heartbeat 2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        #thankyou .thank-you-subtitle {
+            font-size: 1.3em;
+            color: var(--purple);
+            margin-bottom: 3rem;
+        }
+
+        #thankyou .gratitude-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(252, 228, 236, 0.9));
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.2);
+            border: 2px solid rgba(233, 30, 99, 0.3);
+        }
+
+        #thankyou .gratitude-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+
+        #thankyou .appreciation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        #thankyou .appreciation-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border-left: 5px solid var(--purple);
+            transition: all 0.3s ease;
+        }
+
+        #thankyou .appreciation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(156, 39, 176, 0.2);
+        }
+
+        #thankyou .appreciation-icon {
+            font-size: 2.5em;
+            margin-bottom: 1rem;
+        }
+
+        #thankyou .appreciation-title {
+            font-size: 1.3em;
+            color: var(--dark-pink);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        #thankyou .interactive-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+        }
+
+        #thankyou .message-board {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            min-height: 100px;
+            border: 2px dashed var(--dark-pink);
+        }
+
+        #thankyou .message-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--light-pink);
+            border-radius: 10px;
+            font-size: 1em;
+            margin-bottom: 1rem;
+            resize: vertical;
+        }
+
+        #thankyou .message-input:focus {
+            outline: none;
+            border-color: var(--dark-pink);
+        }
+
+        #thankyou .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        #thankyou .heart {
+            position: absolute;
+            font-size: 1.5em;
+            animation: floatHeart 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        #thankyou .restart-journey {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1));
+            border-radius: 20px;
+            border: 2px solid rgba(233, 30, 99, 0.3);
+        }
+
+        #thankyou .signature-final {
+            font-size: 1.4em;
+            color: var(--purple);
+            font-style: italic;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
     </style>
 </head>
 <body>
@@ -49,120 +691,457 @@
     <!-- Navigation -->
     <nav class="nav-container">
         <div class="nav-menu">
-            <a href="index.html" class="nav-btn">🏠 Home</a>
-            <a href="apology.html" class="nav-btn">🙏 Apology</a>
-            <a href="game.html" class="nav-btn">🎮 Game</a>
-            <a href="message.html" class="nav-btn">💌 Message</a>
-            <a href="flashcards.html" class="nav-btn">📚 Flashcards</a>
-            <a href="song.html" class="nav-btn">🎵 Song</a>
-            <a href="thank-you.html" class="nav-btn">❤️ Thank You</a>
+            <a href="#home" class="nav-btn" data-section="home">🏠 Home</a>
+            <a href="#apology" class="nav-btn" data-section="apology">🙏 Apology</a>
+            <a href="#game" class="nav-btn" data-section="game">🎮 Game</a>
+            <a href="#message" class="nav-btn" data-section="message">💌 Message</a>
+            <a href="#flashcards" class="nav-btn" data-section="flashcards">📚 Flashcards</a>
+            <a href="#song" class="nav-btn" data-section="song">🎵 Song</a>
+            <a href="#thankyou" class="nav-btn" data-section="thankyou">❤️ Thank You</a>
         </div>
     </nav>
 
     <!-- Animated Pandas -->
-    <div class="panda panda-spot-1">🐼</div>
-    <div class="panda panda-spot-2">🐼</div>
-    <div class="panda panda-spot-3">🐼</div>
-    <div class="panda panda-spot-4">🐼</div>
-    <div class="panda panda-spot-5">🐼</div>
+    <div class="panda" style="top: 15%; left: 10%;">🐼</div>
+    <div class="panda" style="top: 25%; right: 8%; animation-delay: 2s;">🐼</div>
+    <div class="panda" style="top: 60%; left: 5%; animation-delay: 4s;">🐼</div>
+    <div class="panda" style="top: 70%; right: 12%; animation-delay: 1s;">🐼</div>
+    <div class="panda" style="top: 85%; left: 50%; animation-delay: 3s;">🐼</div>
 
-    <!-- Main Content -->
+    <!-- Main Content Sections -->
     <main class="main-content">
-        <div class="card fade-in">
-            <div class="hero-section">
-                <h1 class="hero-title">Welcome to Sorry 🌸</h1>
-                <p class="hero-subtitle">A website dedicated to making things right</p>
+        <!-- HOME SECTION -->
+        <section id="home" class="page-section active">
+            <div class="card fade-in">
+                <div class="hero-section">
+                    <h1 class="hero-title">Welcome to Sorry 🌸</h1>
+                    <p class="hero-subtitle">A website dedicated to making things right</p>
+                    
+                    <div class="button-group">
+                        <button class="btn-primary bounce" onclick="navigateTo('apology')">
+                            Start the Journey
+                        </button>
+                        <button class="btn-primary" onclick="showIntro()">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="intro-card">
+                <h2>What's This About? 💕</h2>
+                <p>This is a special website created to show how sorry someone is. It includes interactive elements, games, and heartfelt messages to make up for whatever went wrong.</p>
+                <p>Navigate through each page to experience the full journey of apologies!</p>
+            </div>
+
+            <div class="card">
+                <h2>Pages You'll Visit 📖</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <div style="text-align: center; padding: 1rem; background: rgba(233, 30, 99, 0.1); border-radius: 15px;">
+                        <div style="font-size: 2em; margin-bottom: 0.5rem;">🙏</div>
+                        <strong>Apology</strong>
+                        <p style="font-size: 0.9em; margin-top: 0.5rem;">Heartfelt apology message</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: rgba(156, 39, 176, 0.1); border-radius: 15px;">
+                        <div style="font-size: 2em; margin-bottom: 0.5rem;">🎮</div>
+                        <strong>Game</strong>
+                        <p style="font-size: 0.9em; margin-top: 0.5rem;">Interactive fun activity</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: rgba(233, 30, 99, 0.1); border-radius: 15px;">
+                        <div style="font-size: 2em; margin-bottom: 0.5rem;">💌</div>
+                        <strong>Message</strong>
+                        <p style="font-size: 0.9em; margin-top: 0.5rem;">Personal message</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: rgba(156, 39, 176, 0.1); border-radius: 15px;">
+                        <div style="font-size: 2em; margin-bottom: 0.5rem;">📚</div>
+                        <strong>Flashcards</strong>
+                        <p style="font-size: 0.9em; margin-top: 0.5rem;">Memory game</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: rgba(233, 30, 99, 0.1); border-radius: 15px;">
+                        <div style="font-size: 2em; margin-bottom: 0.5rem;">🎵</div>
+                        <strong>Song</strong>
+                        <p style="font-size: 0.9em; margin-top: 0.5rem;">Special song</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: rgba(156, 39, 176, 0.1); border-radius: 15px;">
+                        <div style="font-size: 2em; margin-bottom: 0.5rem;">❤️</div>
+                        <strong>Thank You</strong>
+                        <p style="font-size: 0.9em; margin-top: 0.5rem;">Gratitude message</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- APOLOGY SECTION -->
+        <section id="apology" class="page-section">
+            <div class="card fade-in">
+                <h1 class="apology-title">A Sincere Apology 🙏</h1>
                 
-                <div class="button-group">
-                    <button class="btn-primary bounce" onclick="smoothNavigate('apology.html')">
-                        Start the Journey
-                    </button>
-                    <button class="btn-primary" onclick="showIntro()">
-                        Learn More
+                <div class="apology-text">
+                    <p>Dearest Friend,</p>
+                    
+                    <p>I want to take a moment to sincerely apologize for whatever happened that hurt you or made you upset. I never meant to cause you any pain, and looking back, I realize I made mistakes that I truly regret.</p>
+                    
+                    <p>I value our friendship/relationship more than words can express, and the thought that my actions might have affected you negatively breaks my heart. You mean so much to me, and I hate that I let you down.</p>
+                    
+                    <p>I am truly sorry for:</p>
+                    <ul style="margin-left: 2rem; margin-top: 1rem;">
+                        <li>Any hurt or disappointment I may have caused</li>
+                        <li>Not being more thoughtful or considerate</li>
+                        <li>Any misunderstanding that arose from my words or actions</li>
+                        <li>Not communicating better when I should have</li>
+                    </ul>
+                    
+                    <p>I want you to know that I am committed to doing better. I have learned from this experience, and I promise to be more careful with your feelings going forward. I don't expect immediate forgiveness, but I hope you can find it in your heart to give me another chance.</p>
+                    
+                    <p>You deserve nothing but kindness, respect, and love, and I am sorry I didn't show that more consistently. I hope we can work through this together, because having you in my life means the world to me.</p>
+                    
+                    <p>With all my love and deepest regrets,</p>
+                    <p><strong>[Your Name]</strong></p>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-primary bounce" onclick="navigateTo('game')">
+                        Next: Let's Play! 🎮
                     </button>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="card">
-            <h2>What's This About? 💕</h2>
-            <p>This is a special website created to show how sorry someone is. It includes interactive elements, games, and heartfelt messages to make up for whatever went wrong.</p>
-            <p>Navigate through each page to experience the full journey of apologies!</p>
-        </div>
+        <!-- GAME SECTION -->
+        <section id="game" class="page-section">
+            <div class="card fade-in">
+                <div class="game-container">
+                    <h1 class="game-title">Let's Play Tic-Tac-Toe! 🎮</h1>
+                    <p>Take a break and play a game together. Sometimes the best apologies come after a fun moment!</p>
+                    
+                    <div class="player-info">
+                        <div class="score">
+                            🐼 You: <span id="playerScore">0</span>
+                        </div>
+                        <div class="current-player">
+                            Current Player: <span id="currentPlayer">🐼</span>
+                        </div>
+                        <div class="score">
+                            🤖 Computer: <span id="computerScore">0</span>
+                        </div>
+                    </div>
 
-        <div class="card">
-            <h2>Pages You'll Visit 📖</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                <div style="text-align: center; padding: 1rem; background: rgba(233, 30, 99, 0.1); border-radius: 15px;">
-                    <div style="font-size: 2em; margin-bottom: 0.5rem;">🙏</div>
-                    <strong>Apology</strong>
-                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Heartfelt apology message</p>
-                </div>
-                <div style="text-align: center; padding: 1rem; background: rgba(156, 39, 176, 0.1); border-radius: 15px;">
-                    <div style="font-size: 2em; margin-bottom: 0.5rem;">🎮</div>
-                    <strong>Game</strong>
-                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Interactive fun activity</p>
-                </div>
-                <div style="text-align: center; padding: 1rem; background: rgba(233, 30, 99, 0.1); border-radius: 15px;">
-                    <div style="font-size: 2em; margin-bottom: 0.5rem;">💌</div>
-                    <strong>Message</strong>
-                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Personal message</p>
-                </div>
-                <div style="text-align: center; padding: 1rem; background: rgba(156, 39, 176, 0.1); border-radius: 15px;">
-                    <div style="font-size: 2em; margin-bottom: 0.5rem;">📚</div>
-                    <strong>Flashcards</strong>
-                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Memory game</p>
-                </div>
-                <div style="text-align: center; padding: 1rem; background: rgba(233, 30, 99, 0.1); border-radius: 15px;">
-                    <div style="font-size: 2em; margin-bottom: 0.5rem;">🎵</div>
-                    <strong>Song</strong>
-                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Special song</p>
-                </div>
-                <div style="text-align: center; padding: 1rem; background: rgba(156, 39, 176, 0.1); border-radius: 15px;">
-                    <div style="font-size: 2em; margin-bottom: 0.5rem;">❤️</div>
-                    <strong>Thank You</strong>
-                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Gratitude message</p>
+                    <div class="winner-message" id="winnerMessage"></div>
+
+                    <div class="tic-tac-toe" id="gameBoard">
+                        <button class="cell" data-index="0"></button>
+                        <button class="cell" data-index="1"></button>
+                        <button class="cell" data-index="2"></button>
+                        <button class="cell" data-index="3"></button>
+                        <button class="cell" data-index="4"></button>
+                        <button class="cell" data-index="5"></button>
+                        <button class="cell" data-index="6"></button>
+                        <button class="cell" data-index="7"></button>
+                        <button class="cell" data-index="8"></button>
+                    </div>
+
+                    <button class="btn-primary" onclick="resetGame()">New Game</button>
+                    <button class="btn-primary" onclick="resetScores()">Reset Scores</button>
+
+                    <div style="margin-top: 2rem;">
+                        <p><em>Winning isn't what matters most - having fun together does! 😊</em></p>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <div class="card">
+                <h2>Game Rules 📋</h2>
+                <p>Get three in a row to win! You are 🐼 and the computer is 🤖.</p>
+                <p>Click on any empty square to make your move. Let's see if you can beat the computer!</p>
+            </div>
+        </section>
+
+        <!-- MESSAGE SECTION -->
+        <section id="message" class="page-section">
+            <div class="card fade-in">
+                <div class="message-container">
+                    <h1 class="message-title">A Personal Message 💌</h1>
+                    
+                    <div class="message-content">
+                        <div class="message-text">
+                            <p>Hey there, beautiful soul,</p>
+                            
+                            <p>I hope this message finds you with a smile on your face, even if it's a small one. I wanted to take the time to really tell you what's been on my mind and in my heart.</p>
+                            
+                            <p>You mean <span class="highlight">so incredibly much</span> to me. Your laugh, your kindness, the way you light up a room when you walk in - these are things I never want to take for granted again. I realize now that I haven't been showing you just how much you matter.</p>
+                            
+                            <p>I know I messed up, and I know words can only do so much. But I need you to know that my <span class="highlight">heart is truly sorry</span>. Every mistake I made taught me something important about what I should have done differently, and more importantly, what I should never do again.</p>
+                            
+                            <p>You're not just someone I care about - you're someone I <span class="highlight">genuinely want to be better for</span>. I want to be the person who deserves to be in your life, who makes you feel valued and loved and appreciated every single day.</p>
+                            
+                            <p>I know healing takes time, and I respect whatever pace you need to take. I just wanted you to know that I'll be here, working on myself, hoping for the chance to show you through actions rather than just words how much you mean to me.</p>
+                            
+                            <p>Thank you for being the amazing person that you are. Thank you for your patience, your understanding, and even for giving me the space I need to really think about all of this.</p>
+                            
+                            <div class="signature">
+                                With endless love and regret,<br>
+                                <strong>[Your Name] 💕</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h3>Send Some Love 💖</h3>
+                        <p>Click the hearts to send virtual hugs and love!</p>
+                        
+                        <div class="love-counter">
+                            Love sent: <span id="loveCount">0</span> 💕
+                        </div>
+                        
+                        <button class="heart-button" onclick="sendLove()">💖</button>
+                        <button class="heart-button" onclick="sendLove()">💕</button>
+                        <button class="heart-button" onclick="sendLove()">💗</button>
+                        <button class="heart-button" onclick="sendLove()">💝</button>
+                        
+                        <div style="margin-top: 2rem;">
+                            <button class="btn-primary bounce" onclick="navigateTo('flashcards')">
+                                Continue the Journey 📚
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Remember 🌟</h2>
+                <p>Every relationship has its ups and downs. What matters most is that we learn, grow, and commit to doing better. The journey to healing and forgiveness is never easy, but it's always worth it when both hearts are willing to try.</p>
+            </div>
+        </section>
+
+        <!-- FLASHCARDS SECTION -->
+        <section id="flashcards" class="page-section">
+            <div class="card fade-in">
+                <div class="game-container">
+                    <h1 class="game-title">Memory Match Game 📚</h1>
+                    <p style="text-align: center; margin-bottom: 1rem;">Match pairs of hearts and smiles to win! Sometimes we need to remember the good times together.</p>
+                    
+                    <div class="difficulty-selector">
+                        <span>Choose difficulty: </span>
+                        <button class="difficulty-btn active" onclick="setDifficulty(event, 'easy')">Easy (3 pairs)</button>
+                        <button class="difficulty-btn" onclick="setDifficulty(event, 'medium')">Medium (6 pairs)</button>
+                        <button class="difficulty-btn" onclick="setDifficulty(event, 'hard')">Hard (8 pairs)</button>
+                    </div>
+
+                    <div class="game-info">
+                        <div class="score-info">
+                            <div class="score-item">
+                                <div>Moves</div>
+                                <div class="score-value" id="movesCount">0</div>
+                            </div>
+                            <div class="score-item">
+                                <div>Matches</div>
+                                <div class="score-value" id="matchesCount">0</div>
+                            </div>
+                            <div class="score-item">
+                                <div>Time</div>
+                                <div class="score-value" id="timer">0s</div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn-primary" onclick="startMemoryGame()">New Game</button>
+                        </div>
+                    </div>
+
+                    <div class="game-status" id="gameStatus"></div>
+
+                    <div class="cards-grid" id="cardsGrid">
+                        <!-- Cards will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>How to Play 🎯</h2>
+                <p>Click on cards to flip them over and reveal the symbols. Find matching pairs to remove them from the board. Complete all matches to win!</p>
+                <p><strong>Tip:</strong> Remember where you saw each symbol to make fewer moves and finish faster!</p>
+            </div>
+        </section>
+
+        <!-- SONG SECTION -->
+        <section id="song" class="page-section">
+            <div class="card fade-in">
+                <div class="song-container">
+                    <h1 class="song-title">"A Song for You" 🎵</h1>
+                    <p class="song-subtitle">Sometimes words aren't enough, so I wrote this song...</p>
+                    
+                    <div class="music-player">
+                        <div class="music-visualizer" id="visualizer">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+
+                        <div class="music-controls">
+                            <button class="control-btn" onclick="togglePlayPause()" id="playBtn">▶️</button>
+                            <button class="control-btn" onclick="stopSong()">⏹️</button>
+                            <button class="control-btn" onclick="restartSong()">🔄</button>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div class="progress" id="progress"></div>
+                        </div>
+
+                        <div style="font-size: 1.1em; color: var(--purple); margin-top: 1rem;">
+                            <span id="currentTime">0:00</span> / <span id="totalTime">3:45</span>
+                        </div>
+                    </div>
+
+                    <div class="lyrics-container">
+                        <div class="lyric-line" data-time="0">🎼 *Soft instrumental intro with gentle piano*</div>
+                        <div class="lyric-line" data-time="8">Hey there, beautiful soul</div>
+                        <div class="lyric-line" data-time="12">I've got something on my mind</div>
+                        <div class="lyric-line" data-time="16">All these words that I can't say enough</div>
+                        <div class="lyric-line" data-time="20">But I hope you'll be kind</div>
+                        
+                        <div class="lyric-line" data-time="24">🎵 *Music builds with strings*</div>
+                        <div class="lyric-line" data-time="26">I know I messed up, I know I hurt</div>
+                        <div class="lyric-line" data-time="30">All the things I should have said</div>
+                        <div class="lyric-line" data-time="34">You're the light in my world</div>
+                        <div class="lyric-line" data-time="38">The love inside my head</div>
+                        
+                        <div class="lyric-line" data-time="42">*Harmonies join in*</div>
+                        <div class="lyric-line" data-time="44">I'm sorry, I'm sorry</div>
+                        <div class="lyric-line" data-time="48">For every word that cut too deep</div>
+                        <div class="lyric-line" data-time="52">I'm sorry, I'm sorry</div>
+                        <div class="lyric-line" data-time="56">For promises I couldn't keep</div>
+                        
+                        <div class="lyric-line" data-time="60">🎸 *Guitar solo with emotion*</div>
+                        <div class="lyric-line" data-time="68">You mean everything to me</div>
+                        <div class="lyric-line" data-time="72">More than words can ever say</div>
+                        <div class="lyric-line" data-time="76">I want to be the one</div>
+                        <div class="lyric-line" data-time="80">Who makes your every day</div>
+                        
+                        <div class="lyric-line" data-time="84">*Beautiful bridge*</div>
+                        <div class="lyric-line" data-time="86">Give me one more chance</div>
+                        <div class="lyric-line" data-time="90">To prove that I can be</div>
+                        <div class="lyric-line" data-time="94">The person you deserve</div>
+                        <div class="lyric-line" data-time="98">The one who sets you free</div>
+                        
+                        <div class="lyric-line" data-time="102">🎵 *Final chorus - building to crescendo*</div>
+                        <div class="lyric-line" data-time="104">I'm sorry, I'm sorry</div>
+                        <div class="lyric-line" data-time="108">For all the pain I've caused your heart</div>
+                        <div class="lyric-line" data-time="112">I'm sorry, I'm sorry</div>
+                        <div class="lyric-line" data-time="116">Let's make a brand new start</div>
+                        
+                        <div class="lyric-line" data-time="120">*Gentle outro*</div>
+                        <div class="lyric-line" data-time="122">I love you, I love you</div>
+                        <div class="lyric-line" data-time="126">More than you'll ever know</div>
+                        <div class="lyric-line" data-time="130">Please forgive me, please forgive me</div>
+                        <div class="lyric-line" data-time="134">And let our love still grow</div>
+                        
+                        <div class="lyric-line" data-time="138">🎼 *Instrumental fade*</div>
+                        <div class="lyric-line" data-time="145">*Until the end of time*</div>
+                        <div class="lyric-line" data-time="150">*I'll be here, waiting*</div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <button class="btn-primary bounce" onclick="navigateTo('thankyou')">
+                            End the Journey ❤️
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>The Story Behind This Song 💕</h2>
+                <p>This song came from the heart, written during quiet moments when I was thinking about us and everything that matters. Every word carries genuine emotion and the sincere hope for forgiveness and a new beginning.</p>
+                <p>Music has always been a way to express what sometimes feels impossible to say with regular words. I hope this song helps you understand just how sorry I am and how much you mean to me.</p>
+            </div>
+        </section>
+
+        <!-- THANK YOU SECTION -->
+        <section id="thankyou" class="page-section">
+            <div class="floating-hearts" id="floatingHearts"></div>
+
+            <div class="card fade-in">
+                <div class="thank-you-container">
+                    <h1 class="thank-you-title">Thank You So Much! ❤️</h1>
+                    <p class="thank-you-subtitle">For taking the time to experience this journey</p>
+                    
+                    <div class="gratitude-section">
+                        <div class="gratitude-text">
+                            <p>Whether you chose to forgive, are still thinking about it, or just wanted to see what this was all about - I want you to know that I am <strong>deeply grateful</strong> for your time and your heart.</p>
+                            
+                            <p>This entire website was created with love, sincerity, and the hope that it might help convey feelings that are sometimes hard to express in just words alone.</p>
+                            
+                            <p>Thank you for being the amazing person you are, for your patience, your kindness, and for giving this a chance. You deserve all the happiness in the world, and I hope that somehow, some way, we can move forward together.</p>
+                        </div>
+                    </div>
+
+                    <div class="appreciation-grid">
+                        <div class="appreciation-card">
+                            <div class="appreciation-icon">🙏</div>
+                            <div class="appreciation-title">Forgiveness</div>
+                            <p>Thank you for considering my apology and giving me a chance to show how sorry I am.</p>
+                        </div>
+                        
+                        <div class="appreciation-card">
+                            <div class="appreciation-icon">💕</div>
+                            <div class="appreciation-title">Your Love</div>
+                            <p>For being the most caring, understanding, and beautiful soul I know.</p>
+                        </div>
+                        
+                        <div class="appreciation-card">
+                            <div class="appreciation-icon">🌟</div>
+                            <div class="appreciation-title">Second Chances</div>
+                            <p>For believing that people can change and for being willing to see the good in me.</p>
+                        </div>
+                        
+                        <div class="appreciation-card">
+                            <div class="appreciation-icon">🌈</div>
+                            <div class="appreciation-title">Hope</div>
+                            <p>For giving me hope that we can rebuild what we had and make it even stronger.</p>
+                        </div>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h3 style="color: var(--dark-pink); margin-bottom: 1rem;">Share Your Thoughts 💭</h3>
+                        <p>I'd love to hear what you think about this journey. Your feedback means everything to me.</p>
+                        
+                        <textarea class="message-input" id="feedbackMessage" placeholder="Share your thoughts here... (This is just for display - your message stays on this page)"></textarea>
+                        
+                        <button class="btn-primary" onclick="saveMessage()">Save My Message 💌</button>
+                        
+                        <div class="message-board" id="messageBoard">
+                            <p style="color: var(--purple); font-style: italic;">Your messages will appear here 💕</p>
+                        </div>
+                    </div>
+
+                    <div class="restart-journey">
+                        <h3 style="color: var(--dark-pink); margin-bottom: 1rem;">Want to Experience This Again? 🔄</h3>
+                        <p>This journey will always be here when you need it. Sometimes we all need a reminder of what's important.</p>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <button class="btn-primary bounce" onclick="navigateTo('home')">
+                                Start From Beginning 🏠
+                            </button>
+                            <button class="btn-primary" onclick="navigateTo('apology')">
+                                Go to Apology 🙏
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="signature-final">
+                        With endless love, gratitude, and hope,<br>
+                        <strong>Always yours, 💖</strong><br><br>
+                        <em>"The best apologies are the ones that lead to positive change and deeper understanding."</em>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <script>
-        // Smooth navigation function
-        function smoothNavigate(page) {
-            document.body.classList.add('page-exit');
-            setTimeout(() => {
-                window.location.href = page;
-            }, 500);
-        }
-
-        // Show intro function
-        function showIntro() {
-            const card = document.querySelector('.card');
-            card.innerHTML = `
-                <h2>Welcome! 🌸</h2>
-                <p>This website is a journey through different ways to say sorry and make things right.</p>
-                <p>Each page has something special - from heartfelt messages to fun interactive activities.</p>
-                <p>The pandas 🐼 and Christmas lights ✨ are here to bring some joy and cuteness to the experience!</p>
-                <div style="text-align: center; margin-top: 2rem;">
-                    <button class="btn-primary" onclick="location.reload()">Back to Home</button>
-                    <button class="btn-primary" onclick="smoothNavigate('apology.html')">Start Now!</button>
-                </div>
-            `;
-        }
-
-        // Add some interactive panda movements
-        document.addEventListener('DOMContentLoaded', function() {
-            const pandas = document.querySelectorAll('.panda');
-            pandas.forEach((panda, index) => {
-                // Random movement every 10-15 seconds
-                setInterval(() => {
-                    const randomX = Math.random() * 20 - 10; // -10 to 10px
-                    const randomY = Math.random() * 20 - 10; // -10 to 10px
-                    panda.style.transform = `translate(${randomX}px, ${randomY}px)`;
-                }, (10 + Math.random() * 5) * 1000);
-            });
-        });
-    </script>
+    <!-- Main JavaScript -->
+    <script src="app.js"></script>
 </body>
 </html>
