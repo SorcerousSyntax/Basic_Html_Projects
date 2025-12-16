@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="apology-style.css">
+    <style>
+        .thank-you-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .thank-you-title {
+            font-size: 3em;
+            color: var(--dark-pink);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: heartbeat 2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .thank-you-subtitle {
+            font-size: 1.3em;
+            color: var(--purple);
+            margin-bottom: 3rem;
+        }
+
+        .gratitude-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(252, 228, 236, 0.9));
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.2);
+            border: 2px solid rgba(233, 30, 99, 0.3);
+        }
+
+        .gratitude-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+
+        .appreciation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .appreciation-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border-left: 5px solid var(--purple);
+            transition: all 0.3s ease;
+        }
+
+        .appreciation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(156, 39, 176, 0.2);
+        }
+
+        .appreciation-icon {
+            font-size: 2.5em;
+            margin-bottom: 1rem;
+        }
+
+        .appreciation-title {
+            font-size: 1.3em;
+            color: var(--dark-pink);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .interactive-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+        }
+
+        .message-board {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            min-height: 100px;
+            border: 2px dashed var(--dark-pink);
+        }
+
+        .message-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--light-pink);
+            border-radius: 10px;
+            font-size: 1em;
+            margin-bottom: 1rem;
+            resize: vertical;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: var(--dark-pink);
+        }
+
+        .panda-spot-1 { top: 20%; left: 8%; }
+        .panda-spot-2 { top: 35%; right: 6%; animation-delay: 1.5s; }
+        .panda-spot-3 { top: 65%; left: 5%; animation-delay: 3s; }
+        .panda-spot-4 { top: 80%; right: 10%; animation-delay: 2.5s; }
+        .panda-spot-5 { top: 90%; left: 50%; animation-delay: 4s; }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5em;
+            animation: floatHeart 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .restart-journey {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1));
+            border-radius: 20px;
+            border: 2px solid rgba(233, 30, 99, 0.3);
+        }
+
+        .signature-final {
+            font-size: 1.4em;
+            color: var(--purple);
+            font-style: italic;
+            margin: 2rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Christmas Lights -->
+    <div class="christmas-lights">
+        <div class="light-string"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-menu">
+            <a href="index.html" class="nav-btn">🏠 Home</a>
+            <a href="apology.html" class="nav-btn">🙏 Apology</a>
+            <a href="game.html" class="nav-btn">🎮 Game</a>
+            <a href="message.html" class="nav-btn">💌 Message</a>
+            <a href="flashcards.html" class="nav-btn">📚 Flashcards</a>
+            <a href="song.html" class="nav-btn">🎵 Song</a>
+            <a href="thank-you.html" class="nav-btn">❤️ Thank You</a>
+        </div>
+    </nav>
+
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Animated Pandas -->
+    <div class="panda panda-spot-1">🐼</div>
+    <div class="panda panda-spot-2">🐼</div>
+    <div class="panda panda-spot-3">🐼</div>
+    <div class="panda panda-spot-4">🐼</div>
+    <div class="panda panda-spot-5">🐼</div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="card fade-in">
+            <div class="thank-you-container">
+                <h1 class="thank-you-title">Thank You So Much! ❤️</h1>
+                <p class="thank-you-subtitle">For taking the time to experience this journey</p>
+                
+                <div class="gratitude-section">
+                    <div class="gratitude-text">
+                        <p>Whether you chose to forgive, are still thinking about it, or just wanted to see what this was all about - I want you to know that I am <strong>deeply grateful</strong> for your time and your heart.</p>
+                        
+                        <p>This entire website was created with love, sincerity, and the hope that it might help convey feelings that are sometimes hard to express in just words alone.</p>
+                        
+                        <p>Thank you for being the amazing person you are, for your patience, your kindness, and for giving this a chance. You deserve all the happiness in the world, and I hope that somehow, some way, we can move forward together.</p>
+                    </div>
+                </div>
+
+                <div class="appreciation-grid">
+                    <div class="appreciation-card">
+                        <div class="appreciation-icon">🙏</div>
+                        <div class="appreciation-title">Forgiveness</div>
+                        <p>Thank you for considering my apology and giving me a chance to show how sorry I am.</p>
+                    </div>
+                    
+                    <div class="appreciation-card">
+                        <div class="appreciation-icon">💕</div>
+                        <div class="appreciation-title">Your Love</div>
+                        <p>For being the most caring, understanding, and beautiful soul I know.</p>
+                    </div>
+                    
+                    <div class="appreciation-card">
+                        <div class="appreciation-icon">🌟</div>
+                        <div class="appreciation-title">Second Chances</div>
+                        <p>For believing that people can change and for being willing to see the good in me.</p>
+                    </div>
+                    
+                    <div class="appreciation-card">
+                        <div class="appreciation-icon">🌈</div>
+                        <div class="appreciation-title">Hope</div>
+                        <p>For giving me hope that we can rebuild what we had and make it even stronger.</p>
+                    </div>
+                </div>
+
+                <div class="interactive-section">
+                    <h3 style="color: var(--dark-pink); margin-bottom: 1rem;">Share Your Thoughts 💭</h3>
+                    <p>I'd love to hear what you think about this journey. Your feedback means everything to me.</p>
+                    
+                    <textarea class="message-input" id="feedbackMessage" placeholder="Share your thoughts here... (This is just for display - your message stays on this page)"></textarea>
+                    
+                    <button class="btn-primary" onclick="saveMessage()">Save My Message 💌</button>
+                    
+                    <div class="message-board" id="messageBoard">
+                        <p style="color: var(--purple); font-style: italic;">Your messages will appear here 💕</p>
+                    </div>
+                </div>
+
+                <div class="restart-journey">
+                    <h3 style="color: var(--dark-pink); margin-bottom: 1rem;">Want to Experience This Again? 🔄</h3>
+                    <p>This journey will always be here when you need it. Sometimes we all need a reminder of what's important.</p>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <button class="btn-primary bounce" onclick="startJourney()">
+                            Start From Beginning 🏠
+                        </button>
+                        <button class="btn-primary" onclick="goToApology()">
+                            Go to Apology 🙏
+                        </button>
+                    </div>
+                </div>
+
+                <div class="signature-final">
+                    With endless love, gratitude, and hope,<br>
+                    <strong>Always yours, 💖</strong><br><br>
+                    <em>"The best apologies are the ones that lead to positive change and deeper understanding."</em>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let savedMessages = [];
+
+        function saveMessage() {
+            const messageInput = document.getElementById('feedbackMessage');
+            const message = messageInput.value.trim();
+            
+            if (message) {
+                savedMessages.push({
+                    text: message,
+                    timestamp: new Date().toLocaleString()
+                });
+                
+                displayMessages();
+                messageInput.value = '';
+                
+                // Trigger celebration
+                triggerCelebration();
+            }
+        }
+
+        function displayMessages() {
+            const messageBoard = document.getElementById('messageBoard');
+            
+            if (savedMessages.length === 0) {
+                messageBoard.innerHTML = '<p style="color: var(--purple); font-style: italic;">Your messages will appear here 💕</p>';
+                return;
+            }
+            
+            messageBoard.innerHTML = savedMessages.map((msg, index) => `
+                <div style="background: rgba(233, 30, 99, 0.1); margin: 0.5rem 0; padding: 1rem; border-radius: 10px; border-left: 3px solid var(--dark-pink);">
+                    <p style="margin: 0; color: var(--text-dark);">${msg.text}</p>
+                    <small style="color: var(--purple); font-style: italic;">${msg.timestamp}</small>
+                </div>
+            `).join('');
+        }
+
+        function triggerCelebration() {
+            const emojis = ['🎉', '💖', '🌟', '✨', '🐼', '💕'];
+            for(let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.position = 'fixed';
+                    emoji.style.fontSize = '2.5em';
+                    emoji.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+                    emoji.style.top = '-50px';
+                    emoji.style.pointerEvents = 'none';
+                    emoji.style.zIndex = '1000';
+                    emoji.style.animation = 'celebration 3s ease-out forwards';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => emoji.remove(), 3000);
+                }, i * 100);
+            }
+        }
+
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts');
+            const heartEmojis = ['💖', '💕', '💗', '💝', '❤️'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 6000);
+            }, 2000);
+        }
+
+        function startJourney() {
+            document.body.classList.add('page-exit');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 500);
+        }
+
+        function goToApology() {
+            document.body.classList.add('page-exit');
+            setTimeout(() => {
+                window.location.href = 'apology.html';
+            }, 500);
+        }
+
+        // Add celebration animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes celebration {
+                0% {
+                    transform: translateY(0) rotate(0deg) scale(0.5);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(${window.innerHeight + 100}px) rotate(360deg) scale(1.2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingHearts();
+            
+            // Show some initial appreciation hearts
+            setTimeout(() => {
+                for(let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        triggerCelebration();
+                    }, i * 300);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

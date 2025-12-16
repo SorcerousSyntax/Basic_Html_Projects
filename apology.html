@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry - Apology</title>
+    <link rel="stylesheet" href="apology-style.css">
+    <style>
+        .apology-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 2rem 0;
+            text-align: left;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            border-left: 5px solid var(--dark-pink);
+        }
+
+        .apology-title {
+            font-size: 2.5em;
+            color: var(--dark-pink);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .panda-spot-1 { top: 20%; left: 5%; }
+        .panda-spot-2 { top: 40%; right: 5%; animation-delay: 1.5s; }
+        .panda-spot-3 { top: 80%; left: 15%; animation-delay: 3s; }
+        .panda-spot-4 { top: 70%; right: 10%; animation-delay: 2.5s; }
+    </style>
+</head>
+<body>
+    <!-- Christmas Lights -->
+    <div class="christmas-lights">
+        <div class="light-string"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-menu">
+            <a href="index.html" class="nav-btn">🏠 Home</a>
+            <a href="apology.html" class="nav-btn">🙏 Apology</a>
+            <a href="game.html" class="nav-btn">🎮 Game</a>
+            <a href="message.html" class="nav-btn">💌 Message</a>
+            <a href="flashcards.html" class="nav-btn">📚 Flashcards</a>
+            <a href="song.html" class="nav-btn">🎵 Song</a>
+            <a href="thank-you.html" class="nav-btn">❤️ Thank You</a>
+        </div>
+    </nav>
+
+    <!-- Animated Pandas -->
+    <div class="panda panda-spot-1">🐼</div>
+    <div class="panda panda-spot-2">🐼</div>
+    <div class="panda panda-spot-3">🐼</div>
+    <div class="panda panda-spot-4">🐼</div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="card fade-in">
+            <h1 class="apology-title">A Sincere Apology 🙏</h1>
+            
+            <div class="apology-text">
+                <p>Dearest Friend,</p>
+                
+                <p>I want to take a moment to sincerely apologize for whatever happened that hurt you or made you upset. I never meant to cause you any pain, and looking back, I realize I made mistakes that I truly regret.</p>
+                
+                <p>I value our friendship/relationship more than words can express, and the thought that my actions might have affected you negatively breaks my heart. You mean so much to me, and I hate that I let you down.</p>
+                
+                <p>I am truly sorry for:</p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>Any hurt or disappointment I may have caused</li>
+                    <li>Not being more thoughtful or considerate</li>
+                    <li>Any misunderstanding that arose from my words or actions</li>
+                    <li>Not communicating better when I should have</li>
+                </ul>
+                
+                <p>I want you to know that I am committed to doing better. I have learned from this experience, and I promise to be more careful with your feelings going forward. I don't expect immediate forgiveness, but I hope you can find it in your heart to give me another chance.</p>
+                
+                <p>You deserve nothing but kindness, respect, and love, and I am sorry I didn't show that more consistently. I hope we can work through this together, because having you in my life means the world to me.</p>
+                
+                <p>With all my love and deepest regrets,</p>
+                <p><strong>[Your Name]</strong></p>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn-primary bounce" onclick="smoothNavigate('game.html')">
+                    Next: Let's Play! 🎮
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function smoothNavigate(page) {
+            document.body.classList.add('page-exit');
+            setTimeout(() => {
+                window.location.href = page;
+            }, 500);
+        }
+
+        // Add heart animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const hearts = ['💖', '💕', '💗', '💝'];
+                for(let i = 0; i < 6; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                        heart.style.position = 'fixed';
+                        heart.style.fontSize = '2em';
+                        heart.style.left = Math.random() * window.innerWidth + 'px';
+                        heart.style.top = window.innerHeight + 'px';
+                        heart.style.pointerEvents = 'none';
+                        heart.style.zIndex = '1000';
+                        heart.style.animation = 'floatUp 4s ease-out forwards';
+                        document.body.appendChild(heart);
+                        
+                        setTimeout(() => heart.remove(), 4000);
+                    }, i * 500);
+                }
+            }, 1000);
+        });
+    </script>
+
+    <style>
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-${window.innerHeight}px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</body>
+</html>

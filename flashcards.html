@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry - Memory Game</title>
+    <link rel="stylesheet" href="apology-style.css">
+    <style>
+        .game-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .game-title {
+            font-size: 2.5em;
+            color: var(--dark-pink);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+            font-size: 1.2em;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .score-info {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--purple);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 120px);
+            grid-template-rows: repeat(3, 120px);
+            gap: 15px;
+            justify-content: center;
+            margin: 2rem auto;
+            max-width: 500px;
+        }
+
+        .flashcard {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--white), var(--light-pink));
+            border: 3px solid var(--dark-pink);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(233, 30, 99, 0.3);
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+            border-radius: 12px;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, var(--white), var(--light-pink));
+            border: 2px solid var(--dark-pink);
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, var(--purple), var(--purple-light));
+            color: var(--white);
+            transform: rotateY(180deg);
+            border: 2px solid var(--purple);
+        }
+
+        .flashcard.matched {
+            transform: scale(0.9);
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .flashcard.matched .card-back {
+            background: linear-gradient(135deg, var(--dark-pink), var(--purple));
+        }
+
+        .game-status {
+            text-align: center;
+            margin: 1rem 0;
+            font-size: 1.3em;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        .game-status.win {
+            color: var(--dark-pink);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        .panda-spot-1 { top: 18%; left: 4%; }
+        .panda-spot-2 { top: 35%; right: 6%; animation-delay: 1.5s; }
+        .panda-spot-3 { top: 65%; left: 8%; animation-delay: 3s; }
+        .panda-spot-4 { top: 80%; right: 10%; animation-delay: 2s; }
+        .panda-spot-5 { top: 50%; left: 90%; animation-delay: 4s; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .difficulty-selector {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .difficulty-btn {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: rgba(156, 39, 176, 0.2);
+            border: 2px solid var(--purple);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-btn.active {
+            background: var(--purple);
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <!-- Christmas Lights -->
+    <div class="christmas-lights">
+        <div class="light-string"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-menu">
+            <a href="index.html" class="nav-btn">🏠 Home</a>
+            <a href="apology.html" class="nav-btn">🙏 Apology</a>
+            <a href="game.html" class="nav-btn">🎮 Game</a>
+            <a href="message.html" class="nav-btn">💌 Message</a>
+            <a href="flashcards.html" class="nav-btn">📚 Flashcards</a>
+            <a href="song.html" class="nav-btn">🎵 Song</a>
+            <a href="thank-you.html" class="nav-btn">❤️ Thank You</a>
+        </div>
+    </nav>
+
+    <!-- Animated Pandas -->
+    <div class="panda panda-spot-1">🐼</div>
+    <div class="panda panda-spot-2">🐼</div>
+    <div class="panda panda-spot-3">🐼</div>
+    <div class="panda panda-spot-4">🐼</div>
+    <div class="panda panda-spot-5">🐼</div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="card fade-in">
+            <div class="game-container">
+                <h1 class="game-title">Memory Match Game 📚</h1>
+                <p style="text-align: center; margin-bottom: 1rem;">Match pairs of hearts and smiles to win! Sometimes we need to remember the good times together.</p>
+                
+                <div class="difficulty-selector">
+                    <span>Choose difficulty: </span>
+                    <button class="difficulty-btn active" onclick="setDifficulty('easy')">Easy (3 pairs)</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('medium')">Medium (6 pairs)</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('hard')">Hard (8 pairs)</button>
+                </div>
+
+                <div class="game-info">
+                    <div class="score-info">
+                        <div class="score-item">
+                            <div>Moves</div>
+                            <div class="score-value" id="movesCount">0</div>
+                        </div>
+                        <div class="score-item">
+                            <div>Matches</div>
+                            <div class="score-value" id="matchesCount">0</div>
+                        </div>
+                        <div class="score-item">
+                            <div>Time</div>
+                            <div class="score-value" id="timer">0s</div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn-primary" onclick="startGame()">New Game</button>
+                    </div>
+                </div>
+
+                <div class="game-status" id="gameStatus"></div>
+
+                <div class="cards-grid" id="cardsGrid">
+                    <!-- Cards will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>How to Play 🎯</h2>
+            <p>Click on cards to flip them over and reveal the symbols. Find matching pairs to remove them from the board. Complete all matches to win!</p>
+            <p><strong>Tip:</strong> Remember where you saw each symbol to make fewer moves and finish faster!</p>
+        </div>
+    </main>
+
+    <script>
+        let gameState = {
+            cards: [],
+            flippedCards: [],
+            matchedPairs: 0,
+            moves: 0,
+            timer: 0,
+            timerInterval: null,
+            gameActive: false,
+            difficulty: 'easy'
+        };
+
+        const symbols = {
+            easy: ['💖', '😊', '🌸'],
+            medium: ['💖', '😊', '🌸', '🦋', '⭐', '🌙'],
+            hard: ['💖', '😊', '🌸', '🦋', '⭐', '🌙', '🎵', '💕']
+        };
+
+        function setDifficulty(level) {
+            gameState.difficulty = level;
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            startGame();
+        }
+
+        function startGame() {
+            // Clear existing timer
+            if (gameState.timerInterval) {
+                clearInterval(gameState.timerInterval);
+            }
+
+            // Reset game state
+            gameState.flippedCards = [];
+            gameState.matchedPairs = 0;
+            gameState.moves = 0;
+            gameState.timer = 0;
+            gameState.gameActive = true;
+
+            // Update display
+            updateDisplay();
+            document.getElementById('gameStatus').textContent = 'Good luck! Find all the pairs!';
+
+            // Generate cards
+            generateCards();
+
+            // Start timer
+            gameState.timerInterval = setInterval(() => {
+                gameState.timer++;
+                document.getElementById('timer').textContent = gameState.timer + 's';
+            }, 1000);
+        }
+
+        function generateCards() {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+            
+            const selectedSymbols = symbols[gameState.difficulty];
+            const cardSymbols = [...selectedSymbols, ...selectedSymbols]; // Duplicate for pairs
+            shuffleArray(cardSymbols);
+
+            gameState.cards = cardSymbols.map((symbol, index) => ({
+                id: index,
+                symbol: symbol,
+                isFlipped: false,
+                isMatched: false
+            }));
+
+            gameState.cards.forEach(card => {
+                const cardElement = createCardElement(card);
+                grid.appendChild(cardElement);
+            });
+        }
+
+        function createCardElement(card) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'flashcard';
+            cardDiv.dataset.cardId = card.id;
+            cardDiv.onclick = () => flipCard(card.id);
+
+            cardDiv.innerHTML = `
+                <div class="card-front">?</div>
+                <div class="card-back">${card.symbol}</div>
+            `;
+
+            return cardDiv;
+        }
+
+        function flipCard(cardId) {
+            if (!gameState.gameActive) return;
+
+            const card = gameState.cards[cardId];
+            if (card.isFlipped || card.isMatched) return;
+
+            // Flip the card
+            card.isFlipped = true;
+            const cardElement = document.querySelector(`[data-card-id="${cardId}"]`);
+            cardElement.classList.add('flipped');
+
+            gameState.flippedCards.push(card);
+
+            // Check for match if two cards are flipped
+            if (gameState.flippedCards.length === 2) {
+                gameState.moves++;
+                updateDisplay();
+
+                setTimeout(checkMatch, 1000);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = gameState.flippedCards;
+
+            if (card1.symbol === card2.symbol) {
+                // Match found
+                card1.isMatched = true;
+                card2.isMatched = true;
+                gameState.matchedPairs++;
+                
+                // Mark cards as matched
+                document.querySelector(`[data-card-id="${card1.id}"]`).classList.add('matched');
+                document.querySelector(`[data-card-id="${card2.id}"]`).classList.add('matched');
+
+                // Check win condition
+                const totalPairs = symbols[gameState.difficulty].length;
+                if (gameState.matchedPairs === totalPairs) {
+                    winGame();
+                } else {
+                    document.getElementById('gameStatus').textContent = 'Great match! Keep going! 💕';
+                }
+            } else {
+                // No match - flip cards back
+                card1.isFlipped = false;
+                card2.isFlipped = false;
+                
+                document.querySelector(`[data-card-id="${card1.id}"]`).classList.remove('flipped');
+                document.querySelector(`[data-card-id="${card2.id}"]`).classList.remove('flipped');
+                
+                document.getElementById('gameStatus').textContent = 'No match, try again! 😊';
+            }
+
+            gameState.flippedCards = [];
+        }
+
+        function winGame() {
+            gameState.gameActive = false;
+            clearInterval(gameState.timerInterval);
+            
+            const statusElement = document.getElementById('gameStatus');
+            statusElement.textContent = `🎉 Congratulations! You won in ${gameState.moves} moves and ${gameState.timer} seconds! 🎉`;
+            statusElement.classList.add('win');
+
+            // Celebrate with animations
+            celebrateWin();
+        }
+
+        function celebrateWin() {
+            const emojis = ['🎉', '🎊', '🌟', '💫', '💖', '🐼'];
+            for(let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.position = 'fixed';
+                    emoji.style.fontSize = '2.5em';
+                    emoji.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+                    emoji.style.top = '-50px';
+                    emoji.style.pointerEvents = 'none';
+                    emoji.style.zIndex = '1000';
+                    emoji.style.animation = 'celebration 4s ease-out forwards';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => emoji.remove(), 4000);
+                }, i * 150);
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('movesCount').textContent = gameState.moves;
+            document.getElementById('matchesCount').textContent = gameState.matchedPairs;
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function smoothNavigate(page) {
+            document.body.classList.add('page-exit');
+            setTimeout(() => {
+                window.location.href = page;
+            }, 500);
+        }
+
+        // Add celebration animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes celebration {
+                0% {
+                    transform: translateY(0) rotate(0deg) scale(0.5);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(${window.innerHeight + 100}px) rotate(360deg) scale(1.2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Start game on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            startGame();
+        });
+    </script>
+</body>
+</html>

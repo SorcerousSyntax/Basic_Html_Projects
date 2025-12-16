@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry - Special Song</title>
+    <link rel="stylesheet" href="apology-style.css">
+    <style>
+        .song-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .song-title {
+            font-size: 2.5em;
+            color: var(--dark-pink);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .song-subtitle {
+            font-size: 1.2em;
+            color: var(--purple);
+            margin-bottom: 2rem;
+        }
+
+        .music-player {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(252, 228, 236, 0.9));
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.2);
+            border: 2px solid rgba(233, 30, 99, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            height: 80px;
+            margin: 1rem 0;
+            gap: 3px;
+        }
+
+        .bar {
+            width: 4px;
+            background: linear-gradient(to top, var(--dark-pink), var(--purple));
+            border-radius: 2px;
+            animation: music 0.8s infinite ease-in-out;
+        }
+
+        .bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .bar:nth-child(2) { height: 30px; animation-delay: 0.1s; }
+        .bar:nth-child(3) { height: 40px; animation-delay: 0.2s; }
+        .bar:nth-child(4) { height: 50px; animation-delay: 0.3s; }
+        .bar:nth-child(5) { height: 60px; animation-delay: 0.4s; }
+        .bar:nth-child(6) { height: 50px; animation-delay: 0.5s; }
+        .bar:nth-child(7) { height: 40px; animation-delay: 0.6s; }
+        .bar:nth-child(8) { height: 30px; animation-delay: 0.7s; }
+
+        @keyframes music {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+        }
+
+        .lyrics-container {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 5px solid var(--dark-pink);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .lyric-line {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin: 1rem 0;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .lyric-line.active {
+            opacity: 1;
+            background: rgba(233, 30, 99, 0.1);
+            transform: scale(1.02);
+            font-weight: 600;
+            color: var(--dark-pink);
+        }
+
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--dark-pink), var(--purple));
+            color: var(--white);
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(233, 30, 99, 0.2);
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--dark-pink), var(--purple));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 3px;
+        }
+
+        .panda-spot-1 { top: 15%; left: 6%; }
+        .panda-spot-2 { top: 30%; right: 4%; animation-delay: 2s; }
+        .panda-spot-3 { top: 65%; left: 10%; animation-delay: 4s; }
+        .panda-spot-4 { top: 75%; right: 8%; animation-delay: 1s; }
+        .panda-spot-5 { top: 85%; left: 50%; animation-delay: 3s; }
+    </style>
+</head>
+<body>
+    <!-- Christmas Lights -->
+    <div class="christmas-lights">
+        <div class="light-string"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-menu">
+            <a href="index.html" class="nav-btn">🏠 Home</a>
+            <a href="apology.html" class="nav-btn">🙏 Apology</a>
+            <a href="game.html" class="nav-btn">🎮 Game</a>
+            <a href="message.html" class="nav-btn">💌 Message</a>
+            <a href="flashcards.html" class="nav-btn">📚 Flashcards</a>
+            <a href="song.html" class="nav-btn">🎵 Song</a>
+            <a href="thank-you.html" class="nav-btn">❤️ Thank You</a>
+        </div>
+    </nav>
+
+    <!-- Animated Pandas -->
+    <div class="panda panda-spot-1">🐼</div>
+    <div class="panda panda-spot-2">🐼</div>
+    <div class="panda panda-spot-3">🐼</div>
+    <div class="panda panda-spot-4">🐼</div>
+    <div class="panda panda-spot-5">🐼</div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="card fade-in">
+            <div class="song-container">
+                <h1 class="song-title">"A Song for You" 🎵</h1>
+                <p class="song-subtitle">Sometimes words aren't enough, so I wrote this song...</p>
+                
+                <div class="music-player">
+                    <div class="music-visualizer" id="visualizer">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+
+                    <div class="music-controls">
+                        <button class="control-btn" onclick="togglePlayPause()" id="playBtn">▶️</button>
+                        <button class="control-btn" onclick="stopSong()">⏹️</button>
+                        <button class="control-btn" onclick="restartSong()">🔄</button>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+
+                    <div style="font-size: 1.1em; color: var(--purple); margin-top: 1rem;">
+                        <span id="currentTime">0:00</span> / <span id="totalTime">3:45</span>
+                    </div>
+                </div>
+
+                <div class="lyrics-container">
+                    <div class="lyric-line" data-time="0">🎼 *Soft instrumental intro with gentle piano*</div>
+                    <div class="lyric-line" data-time="8">Hey there, beautiful soul</div>
+                    <div class="lyric-line" data-time="12">I've got something on my mind</div>
+                    <div class="lyric-line" data-time="16">All these words that I can't say enough</div>
+                    <div class="lyric-line" data-time="20">But I hope you'll be kind</div>
+                    
+                    <div class="lyric-line" data-time="24">🎵 *Music builds with strings*</div>
+                    <div class="lyric-line" data-time="26">I know I messed up, I know I hurt</div>
+                    <div class="lyric-line" data-time="30">All the things I should have said</div>
+                    <div class="lyric-line" data-time="34">You're the light in my world</div>
+                    <div class="lyric-line" data-time="38">The love inside my head</div>
+                    
+                    <div class="lyric-line" data-time="42">*Harmonies join in*</div>
+                    <div class="lyric-line" data-time="44">I'm sorry, I'm sorry</div>
+                    <div class="lyric-line" data-time="48">For every word that cut too deep</div>
+                    <div class="lyric-line" data-time="52">I'm sorry, I'm sorry</div>
+                    <div class="lyric-line" data-time="56">For promises I couldn't keep</div>
+                    
+                    <div class="lyric-line" data-time="60">🎸 *Guitar solo with emotion*</div>
+                    <div class="lyric-line" data-time="68">You mean everything to me</div>
+                    <div class="lyric-line" data-time="72">More than words can ever say</div>
+                    <div class="lyric-line" data-time="76">I want to be the one</div>
+                    <div class="lyric-line" data-time="80">Who makes your every day</div>
+                    
+                    <div class="lyric-line" data-time="84">*Beautiful bridge*</div>
+                    <div class="lyric-line" data-time="86">Give me one more chance</div>
+                    <div class="lyric-line" data-time="90">To prove that I can be</div>
+                    <div class="lyric-line" data-time="94">The person you deserve</div>
+                    <div class="lyric-line" data-time="98">The one who sets you free</div>
+                    
+                    <div class="lyric-line" data-time="102">🎵 *Final chorus - building to crescendo*</div>
+                    <div class="lyric-line" data-time="104">I'm sorry, I'm sorry</div>
+                    <div class="lyric-line" data-time="108">For all the pain I've caused your heart</div>
+                    <div class="lyric-line" data-time="112">I'm sorry, I'm sorry</div>
+                    <div class="lyric-line" data-time="116">Let's make a brand new start</div>
+                    
+                    <div class="lyric-line" data-time="120">*Gentle outro*</div>
+                    <div class="lyric-line" data-time="122">I love you, I love you</div>
+                    <div class="lyric-line" data-time="126">More than you'll ever know</div>
+                    <div class="lyric-line" data-time="130">Please forgive me, please forgive me</div>
+                    <div class="lyric-line" data-time="134">And let our love still grow</div>
+                    
+                    <div class="lyric-line" data-time="138">🎼 *Instrumental fade*</div>
+                    <div class="lyric-line" data-time="145">*Until the end of time*</div>
+                    <div class="lyric-line" data-time="150">*I'll be here, waiting*</div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <button class="btn-primary bounce" onclick="smoothNavigate('thank-you.html')">
+                        End the Journey ❤️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>The Story Behind This Song 💕</h2>
+            <p>This song came from the heart, written during quiet moments when I was thinking about us and everything that matters. Every word carries genuine emotion and the sincere hope for forgiveness and a new beginning.</p>
+            <p>Music has always been a way to express what sometimes feels impossible to say with regular words. I hope this song helps you understand just how sorry I am and how much you mean to me.</p>
+        </div>
+    </main>
+
+    <script>
+        let isPlaying = false;
+        let currentTime = 0;
+        let songDuration = 225; // 3:45 in seconds
+        let playInterval;
+
+        const lyrics = [
+            { time: 0, text: "🎼 *Soft instrumental intro with gentle piano*" },
+            { time: 8, text: "Hey there, beautiful soul" },
+            { time: 12, text: "I've got something on my mind" },
+            { time: 16, text: "All these words that I can't say enough" },
+            { time: 20, text: "But I hope you'll be kind" },
+            { time: 24, text: "🎵 *Music builds with strings*" },
+            { time: 26, text: "I know I messed up, I know I hurt" },
+            { time: 30, text: "All the things I should have said" },
+            { time: 34, text: "You're the light in my world" },
+            { time: 38, text: "The love inside my head" },
+            { time: 42, text: "*Harmonies join in*" },
+            { time: 44, text: "I'm sorry, I'm sorry" },
+            { time: 48, text: "For every word that cut too deep" },
+            { time: 52, text: "I'm sorry, I'm sorry" },
+            { time: 56, text: "For promises I couldn't keep" },
+            { time: 60, text: "🎸 *Guitar solo with emotion*" },
+            { time: 68, text: "You mean everything to me" },
+            { time: 72, text: "More than words can ever say" },
+            { time: 76, text: "I want to be the one" },
+            { time: 80, text: "Who makes your every day" },
+            { time: 84, text: "*Beautiful bridge*" },
+            { time: 86, text: "Give me one more chance" },
+            { time: 90, text: "To prove that I can be" },
+            { time: 94, text: "The person you deserve" },
+            { time: 98, text: "The one who sets you free" },
+            { time: 102, text: "🎵 *Final chorus - building to crescendo*" },
+            { time: 104, text: "I'm sorry, I'm sorry" },
+            { time: 108, text: "For all the pain I've caused your heart" },
+            { time: 112, text: "I'm sorry, I'm sorry" },
+            { time: 116, text: "Let's make a brand new start" },
+            { time: 120, text: "*Gentle outro*" },
+            { time: 122, text: "I love you, I love you" },
+            { time: 126, text: "More than you'll ever know" },
+            { time: 130, text: "Please forgive me, please forgive me" },
+            { time: 134, text: "And let our love still grow" },
+            { time: 138, text: "🎼 *Instrumental fade*" },
+            { time: 145, text: "*Until the end of time*" },
+            { time: 150, text: "*I'll be here, waiting*" }
+        ];
+
+        function togglePlayPause() {
+            if (isPlaying) {
+                pauseSong();
+            } else {
+                playSong();
+            }
+        }
+
+        function playSong() {
+            isPlaying = true;
+            document.getElementById('playBtn').textContent = '⏸️';
+            
+            // Add some magical sparkles when playing
+            createSparkles();
+            
+            playInterval = setInterval(() => {
+                currentTime++;
+                updateProgress();
+                highlightCurrentLyric();
+                
+                if (currentTime >= songDuration) {
+                    stopSong();
+                }
+            }, 1000);
+            
+            updateProgress();
+        }
+
+        function pauseSong() {
+            isPlaying = false;
+            document.getElementById('playBtn').textContent = '▶️';
+            clearInterval(playInterval);
+        }
+
+        function stopSong() {
+            isPlaying = false;
+            currentTime = 0;
+            document.getElementById('playBtn').textContent = '▶️';
+            clearInterval(playInterval);
+            updateProgress();
+            highlightCurrentLyric();
+        }
+
+        function restartSong() {
+            stopSong();
+            playSong();
+        }
+
+        function updateProgress() {
+            const progress = (currentTime / songDuration) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            
+            const minutes = Math.floor(currentTime / 60);
+            const seconds = currentTime % 60;
+            document.getElementById('currentTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function highlightCurrentLyric() {
+            // Remove all active classes
+            document.querySelectorAll('.lyric-line').forEach(line => {
+                line.classList.remove('active');
+            });
+            
+            // Find current lyric
+            const currentLyric = lyrics.find(lyric => 
+                currentTime >= lyric.time && currentTime < lyric.time + 4
+            );
+            
+            if (currentLyric) {
+                const lyricElement = document.querySelector(`[data-time="${currentLyric.time}"]`);
+                if (lyricElement) {
+                    lyricElement.classList.add('active');
+                    
+                    // Auto-scroll to current lyric
+                    lyricElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            }
+        }
+
+        function createSparkles() {
+            const sparkleEmojis = ['✨', '💫', '🌟', '💖'];
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+            sparkle.style.position = 'fixed';
+            sparkle.style.fontSize = '2em';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '1000';
+            sparkle.style.animation = 'sparkle 2s ease-out forwards';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 2000);
+        }
+
+        function smoothNavigate(page) {
+            document.body.classList.add('page-exit');
+            setTimeout(() => {
+                window.location.href = page;
+            }, 500);
+        }
+
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% {
+                    transform: scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1.2) rotate(180deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add some ambient sparkles during playback
+        document.addEventListener('DOMContentLoaded', function() {
+            setInterval(() => {
+                if (isPlaying && Math.random() > 0.7) {
+                    createSparkles();
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
