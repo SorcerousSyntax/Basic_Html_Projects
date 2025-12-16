@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry Website - Home</title>
+    <link rel="stylesheet" href="apology-style.css">
+    <style>
+        /* Homepage specific styles */
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .hero-title {
+            font-size: 3.5em;
+            color: var(--dark-pink);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3em;
+            color: var(--purple);
+            margin-bottom: 2rem;
+        }
+
+        .panda-spot-1 { top: 15%; left: 10%; }
+        .panda-spot-2 { top: 25%; right: 8%; animation-delay: 2s; }
+        .panda-spot-3 { top: 60%; left: 5%; animation-delay: 4s; }
+        .panda-spot-4 { top: 70%; right: 12%; animation-delay: 1s; }
+        .panda-spot-5 { top: 85%; left: 50%; animation-delay: 3s; }
+    </style>
+</head>
+<body>
+    <!-- Christmas Lights Decoration -->
+    <div class="christmas-lights">
+        <div class="light-string"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-menu">
+            <a href="index.html" class="nav-btn">🏠 Home</a>
+            <a href="apology.html" class="nav-btn">🙏 Apology</a>
+            <a href="game.html" class="nav-btn">🎮 Game</a>
+            <a href="message.html" class="nav-btn">💌 Message</a>
+            <a href="flashcards.html" class="nav-btn">📚 Flashcards</a>
+            <a href="song.html" class="nav-btn">🎵 Song</a>
+            <a href="thank-you.html" class="nav-btn">❤️ Thank You</a>
+        </div>
+    </nav>
+
+    <!-- Animated Pandas -->
+    <div class="panda panda-spot-1">🐼</div>
+    <div class="panda panda-spot-2">🐼</div>
+    <div class="panda panda-spot-3">🐼</div>
+    <div class="panda panda-spot-4">🐼</div>
+    <div class="panda panda-spot-5">🐼</div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="card fade-in">
+            <div class="hero-section">
+                <h1 class="hero-title">Welcome to Sorry 🌸</h1>
+                <p class="hero-subtitle">A website dedicated to making things right</p>
+                
+                <div class="button-group">
+                    <button class="btn-primary bounce" onclick="smoothNavigate('apology.html')">
+                        Start the Journey
+                    </button>
+                    <button class="btn-primary" onclick="showIntro()">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>What's This About? 💕</h2>
+            <p>This is a special website created to show how sorry someone is. It includes interactive elements, games, and heartfelt messages to make up for whatever went wrong.</p>
+            <p>Navigate through each page to experience the full journey of apologies!</p>
+        </div>
+
+        <div class="card">
+            <h2>Pages You'll Visit 📖</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="text-align: center; padding: 1rem; background: rgba(233, 30, 99, 0.1); border-radius: 15px;">
+                    <div style="font-size: 2em; margin-bottom: 0.5rem;">🙏</div>
+                    <strong>Apology</strong>
+                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Heartfelt apology message</p>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: rgba(156, 39, 176, 0.1); border-radius: 15px;">
+                    <div style="font-size: 2em; margin-bottom: 0.5rem;">🎮</div>
+                    <strong>Game</strong>
+                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Interactive fun activity</p>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: rgba(233, 30, 99, 0.1); border-radius: 15px;">
+                    <div style="font-size: 2em; margin-bottom: 0.5rem;">💌</div>
+                    <strong>Message</strong>
+                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Personal message</p>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: rgba(156, 39, 176, 0.1); border-radius: 15px;">
+                    <div style="font-size: 2em; margin-bottom: 0.5rem;">📚</div>
+                    <strong>Flashcards</strong>
+                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Memory game</p>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: rgba(233, 30, 99, 0.1); border-radius: 15px;">
+                    <div style="font-size: 2em; margin-bottom: 0.5rem;">🎵</div>
+                    <strong>Song</strong>
+                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Special song</p>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: rgba(156, 39, 176, 0.1); border-radius: 15px;">
+                    <div style="font-size: 2em; margin-bottom: 0.5rem;">❤️</div>
+                    <strong>Thank You</strong>
+                    <p style="font-size: 0.9em; margin-top: 0.5rem;">Gratitude message</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Smooth navigation function
+        function smoothNavigate(page) {
+            document.body.classList.add('page-exit');
+            setTimeout(() => {
+                window.location.href = page;
+            }, 500);
+        }
+
+        // Show intro function
+        function showIntro() {
+            const card = document.querySelector('.card');
+            card.innerHTML = `
+                <h2>Welcome! 🌸</h2>
+                <p>This website is a journey through different ways to say sorry and make things right.</p>
+                <p>Each page has something special - from heartfelt messages to fun interactive activities.</p>
+                <p>The pandas 🐼 and Christmas lights ✨ are here to bring some joy and cuteness to the experience!</p>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-primary" onclick="location.reload()">Back to Home</button>
+                    <button class="btn-primary" onclick="smoothNavigate('apology.html')">Start Now!</button>
+                </div>
+            `;
+        }
+
+        // Add some interactive panda movements
+        document.addEventListener('DOMContentLoaded', function() {
+            const pandas = document.querySelectorAll('.panda');
+            pandas.forEach((panda, index) => {
+                // Random movement every 10-15 seconds
+                setInterval(() => {
+                    const randomX = Math.random() * 20 - 10; // -10 to 10px
+                    const randomY = Math.random() * 20 - 10; // -10 to 10px
+                    panda.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                }, (10 + Math.random() * 5) * 1000);
+            });
+        });
+    </script>
+</body>
+</html>

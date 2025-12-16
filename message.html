@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry - Personal Message</title>
+    <link rel="stylesheet" href="apology-style.css">
+    <style>
+        .message-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .message-title {
+            font-size: 2.5em;
+            color: var(--dark-pink);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .message-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(252, 228, 236, 0.9));
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1);
+            border: 2px solid rgba(233, 30, 99, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-content:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(233, 30, 99, 0.03), transparent);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .message-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: var(--text-dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        .message-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(233, 30, 99, 0.2) 0%, rgba(156, 39, 176, 0.2) 100%);
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 2rem;
+            font-size: 1.1em;
+            color: var(--purple);
+        }
+
+        .interactive-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .heart-button {
+            background: none;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .heart-button:hover {
+            transform: scale(1.2);
+        }
+
+        .love-counter {
+            font-size: 1.2em;
+            color: var(--dark-pink);
+            margin: 1rem 0;
+        }
+
+        .panda-spot-1 { top: 20%; left: 8%; }
+        .panda-spot-2 { top: 45%; right: 5%; animation-delay: 2.5s; }
+        .panda-spot-3 { top: 70%; left: 12%; animation-delay: 1s; }
+        .panda-spot-4 { top: 85%; right: 15%; animation-delay: 3.5s; }
+    </style>
+</head>
+<body>
+    <!-- Christmas Lights -->
+    <div class="christmas-lights">
+        <div class="light-string"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-menu">
+            <a href="index.html" class="nav-btn">🏠 Home</a>
+            <a href="apology.html" class="nav-btn">🙏 Apology</a>
+            <a href="game.html" class="nav-btn">🎮 Game</a>
+            <a href="message.html" class="nav-btn">💌 Message</a>
+            <a href="flashcards.html" class="nav-btn">📚 Flashcards</a>
+            <a href="song.html" class="nav-btn">🎵 Song</a>
+            <a href="thank-you.html" class="nav-btn">❤️ Thank You</a>
+        </div>
+    </nav>
+
+    <!-- Animated Pandas -->
+    <div class="panda panda-spot-1">🐼</div>
+    <div class="panda panda-spot-2">🐼</div>
+    <div class="panda panda-spot-3">🐼</div>
+    <div class="panda panda-spot-4">🐼</div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="card fade-in">
+            <div class="message-container">
+                <h1 class="message-title">A Personal Message 💌</h1>
+                
+                <div class="message-content">
+                    <div class="message-text">
+                        <p>Hey there, beautiful soul,</p>
+                        
+                        <p>I hope this message finds you with a smile on your face, even if it's a small one. I wanted to take the time to really tell you what's been on my mind and in my heart.</p>
+                        
+                        <p>You mean <span class="highlight">so incredibly much</span> to me. Your laugh, your kindness, the way you light up a room when you walk in - these are things I never want to take for granted again. I realize now that I haven't been showing you just how much you matter.</p>
+                        
+                        <p>I know I messed up, and I know words can only do so much. But I need you to know that my <span class="highlight">heart is truly sorry</span>. Every mistake I made taught me something important about what I should have done differently, and more importantly, what I should never do again.</p>
+                        
+                        <p>You're not just someone I care about - you're someone I <span class="highlight">genuinely want to be better for</span>. I want to be the person who deserves to be in your life, who makes you feel valued and loved and appreciated every single day.</p>
+                        
+                        <p>I know healing takes time, and I respect whatever pace you need to take. I just wanted you to know that I'll be here, working on myself, hoping for the chance to show you through actions rather than just words how much you mean to me.</p>
+                        
+                        <p>Thank you for being the amazing person that you are. Thank you for your patience, your understanding, and even for giving me the space I need to really think about all of this.</p>
+                        
+                        <div class="signature">
+                            With endless love and regret,<br>
+                            <strong>[Your Name] 💕</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-section">
+                    <h3>Send Some Love 💖</h3>
+                    <p>Click the hearts to send virtual hugs and love!</p>
+                    
+                    <div class="love-counter">
+                        Love sent: <span id="loveCount">0</span> 💕
+                    </div>
+                    
+                    <button class="heart-button" onclick="sendLove()">💖</button>
+                    <button class="heart-button" onclick="sendLove()">💕</button>
+                    <button class="heart-button" onclick="sendLove()">💗</button>
+                    <button class="heart-button" onclick="sendLove()">💝</button>
+                    
+                    <div style="margin-top: 2rem;">
+                        <button class="btn-primary bounce" onclick="smoothNavigate('flashcards.html')">
+                            Continue the Journey 📚
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Remember 🌟</h2>
+            <p>Every relationship has its ups and downs. What matters most is that we learn, grow, and commit to doing better. The journey to healing and forgiveness is never easy, but it's always worth it when both hearts are willing to try.</p>
+        </div>
+    </main>
+
+    <script>
+        let loveCount = 0;
+
+        function sendLove() {
+            loveCount++;
+            document.getElementById('loveCount').textContent = loveCount;
+            
+            // Create floating hearts
+            const hearts = ['💖', '💕', '💗', '💝'];
+            const heart = document.createElement('div');
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.position = 'fixed';
+            heart.style.fontSize = '2.5em';
+            heart.style.left = (Math.random() * (window.innerWidth - 100)) + 'px';
+            heart.style.top = window.innerHeight + 'px';
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '1000';
+            heart.style.animation = 'floatLove 4s ease-out forwards';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 4000);
+            
+            // Small celebration effect
+            if (loveCount % 5 === 0) {
+                triggerSpecialEffect();
+            }
+        }
+
+        function triggerSpecialEffect() {
+            const emojis = ['🌟', '✨', '💫', '🎉'];
+            for(let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.position = 'fixed';
+                    emoji.style.fontSize = '2em';
+                    emoji.style.left = (Math.random() * (window.innerWidth - 50)) + 'px';
+                    emoji.style.top = '-30px';
+                    emoji.style.pointerEvents = 'none';
+                    emoji.style.zIndex = '1000';
+                    emoji.style.animation = 'celebration 3s ease-out forwards';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => emoji.remove(), 3000);
+                }, i * 100);
+            }
+        }
+
+        function smoothNavigate(page) {
+            document.body.classList.add('page-exit');
+            setTimeout(() => {
+                window.location.href = page;
+            }, 500);
+        }
+
+        // Add floating love animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatLove {
+                0% {
+                    transform: translateY(0) scale(0.5);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-${window.innerHeight}px) scale(1.2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add some ambient hearts that appear randomly
+        document.addEventListener('DOMContentLoaded', function() {
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const ambientHearts = ['💕', '💗', '✨'];
+                    const heart = document.createElement('div');
+                    heart.innerHTML = ambientHearts[Math.floor(Math.random() * ambientHearts.length)];
+                    heart.style.position = 'fixed';
+                    heart.style.fontSize = '1.5em';
+                    heart.style.left = (Math.random() * window.innerWidth) + 'px';
+                    heart.style.top = (Math.random() * window.innerHeight) + 'px';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '100';
+                    heart.style.opacity = '0.3';
+                    heart.style.animation = 'fadeInOut 6s ease-in-out forwards';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 6000);
+                }
+            }, 3000);
+        });
+
+        // Add fade in/out animation for ambient hearts
+        const ambientStyle = document.createElement('style');
+        ambientStyle.textContent = `
+            @keyframes fadeInOut {
+                0%, 100% {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                50% {
+                    opacity: 0.3;
+                    transform: scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(ambientStyle);
+    </script>
+</body>
+</html>
